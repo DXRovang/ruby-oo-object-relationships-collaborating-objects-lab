@@ -1,3 +1,5 @@
+require "pry"
+
 class Song
 
   attr_accessor :name, :artist
@@ -13,12 +15,27 @@ class Song
     @@all
   end
 
-  def new_by_filename(filename)
+  def self.new_by_filename(filename)
+
+    #separate the filename
+    artist = filename.split(" - ")[0]
+    name = filename.split(" - ")[1]
+
+    #create a new instance
+    song = Song.new(name)
+    song.artist = artist
+
+    #associate instance with artist
+    Artist.add_song(name)
+    
+   
+    song
 
   end
 
   def artist_name=(name)
-    @name = name
+    artist = Artist.find_or_create_by_name(name)
+    self.artist = artist
   end
 
 end
