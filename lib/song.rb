@@ -23,19 +23,17 @@ class Song
 
     #create a new instance
     song = Song.new(name)
-    song.artist = artist
-
-    #associate instance with artist
-    Artist.add_song(name)
     
-   
+    #associate instance with artist
+    song.artist_name = artist
+    
     song
-
   end
 
   def artist_name=(name)
     artist = Artist.find_or_create_by_name(name)
-    self.artist = artist
+
+    artist.add_song(self)
   end
 
 end
